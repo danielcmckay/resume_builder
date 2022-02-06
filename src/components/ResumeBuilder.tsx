@@ -1,6 +1,7 @@
-import { Paper } from "@mantine/core";
+import { Box, Center, Group, Paper, Select } from "@mantine/core";
 import { ResumeSection } from "../constants/types";
 import { Responsive, WidthProvider } from "react-grid-layout";
+import { ELEMENT_TYPES_MAP } from "../constants/constants";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -9,17 +10,76 @@ export function ResumeBuilder(props: {
   updateItems: (items: ResumeSection[]) => void;
 }) {
   return (
-    <Paper
-      style={{
-        height: 1800,
-        width: 1200,
-        padding: 100,
-        overflowY: "scroll",
-        boxShadow: "5px 5px 15px 5px rgba(0,0,0,0.43)",
-      }}
-    >
-      <ResumeGrid items={props.items} />
-    </Paper>
+    <Group>
+      <Box
+        style={{
+          backgroundColor: "white",
+          width: 1000,
+          height: "80px",
+          boxShadow: "5px 5px 15px 5px rgba(0,0,0,0.43)",
+          borderRadius: "5px",
+          margin: "10px auto",
+          padding: "10px",
+        }}
+      >
+        <Center>
+          <Group>
+            <Select
+              label="Font"
+              data={["font 1", "font 2"]}
+              size="xs"
+              defaultValue={"font 1"}
+            />
+            <Select
+              label="Font size"
+              size="xs"
+              defaultValue={"10"}
+              data={["10", "11", "12", "14", "16", "18", "20"]}
+            />
+            <Select
+              label="Formatting"
+              size="xs"
+              defaultValue={"Normal"}
+              data={Array.from(ELEMENT_TYPES_MAP.keys())}
+              onChange={(val) => {
+                console.log(val);
+                // if (val) {
+                //   const changedItem = {
+                //     ...i,
+                //     type: ELEMENT_TYPES_MAP.get(
+                //       val
+                //     ) as ElementTypes,
+                //   };
+                //   const idx = props.items.findIndex(
+                //     (v) => v.id === i.id
+                //   );
+                //   const itemsCopy = [...props.items];
+                //   itemsCopy[idx] = changedItem;
+                //   props.updateItems(itemsCopy);
+                // }
+              }}
+              // value={
+              //   Array.from(ELEMENT_TYPES_MAP.entries()).find(
+              //     ([name, val]) => val === i.type
+              //   )?.[0] ?? "normal"
+              // }
+            />
+          </Group>
+        </Center>
+      </Box>
+      <Paper
+        style={{
+          height: 1400,
+          width: 1000,
+          padding: 100,
+          margin: "10px auto",
+          overflow: "scroll",
+          boxShadow: "5px 5px 15px 5px rgba(0,0,0,0.43)",
+        }}
+      >
+        <ResumeGrid items={props.items} />
+      </Paper>
+    </Group>
   );
 }
 
@@ -27,10 +87,11 @@ const ResumeGrid = (props: { items: ResumeSection[] }) => {
   return (
     <ResponsiveGridLayout
       rowHeight={30}
+      autoSize
       width={1200}
       breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
       cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
-      maxRows={10}
+      maxRows={30}
       onDragStop={() => {
         console.log("hi");
       }}
@@ -39,6 +100,7 @@ const ResumeGrid = (props: { items: ResumeSection[] }) => {
       {props.items.map((i) => {
         return (
           <div
+            style={{ cursor: "pointer" }}
             data-grid={{
               x: 0,
               y: 0,

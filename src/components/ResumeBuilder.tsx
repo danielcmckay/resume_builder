@@ -1,9 +1,6 @@
 import { Paper } from "@mantine/core";
 import { ResumeSection } from "../constants/types";
-import {
-  Responsive,
-  WidthProvider,
-} from "react-grid-layout";
+import { Responsive, WidthProvider } from "react-grid-layout";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -37,6 +34,7 @@ const ResumeGrid = (props: { items: ResumeSection[] }) => {
       onDragStop={() => {
         console.log("hi");
       }}
+      allowOverlap={false}
     >
       {props.items.map((i) => {
         return (

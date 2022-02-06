@@ -1,11 +1,12 @@
 import { InputWrapper, Input, Select, Button, Group } from "@mantine/core";
 import { useState } from "react";
 import { ELEMENT_TYPES_MAP } from "../constants/constants";
-import { ElementTypes, NewItem } from "../constants/types";
+import { Category, ElementTypes, NewItem } from "../constants/types";
 
 export function NewItemForm(props: {
-  saveNewItemFn: (item: NewItem) => void;
+  saveNewItemFn: (item: NewItem, category: Category) => void;
   hideModalFn: () => void;
+  category: Category;
 }) {
   const [newItem, setNewItem] = useState<NewItem>({
     label: "",
@@ -42,7 +43,7 @@ export function NewItemForm(props: {
           justifyContent: "space-evenly",
         }}
       >
-        <Button onClick={() => props.saveNewItemFn(newItem)}>
+        <Button onClick={() => props.saveNewItemFn(newItem, props.category)}>
           Save and exit
         </Button>
         <Button color="red" onClick={props.hideModalFn}>

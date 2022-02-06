@@ -18,7 +18,10 @@ export type ResumeSection = {
   value: any;
   type: ElementTypes;
   width?: number;
+  category: Category;
   content: (type: ElementTypes, value: any) => ReactElement;
 };
 
 export type NewItem = { label: string; type: ElementTypes };
+
+export type Category = "personal" | "work" | "skills" | "education" | "custom";

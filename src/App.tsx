@@ -1,10 +1,23 @@
 import { useState } from "react";
-import { AppShell, Header, Modal } from "@mantine/core";
+import {
+  ActionIcon,
+  AppShell,
+  Drawer,
+  Group,
+  Header,
+  Modal,
+  Title,
+} from "@mantine/core";
 
 import { NewItemForm } from "./components/NewItemForm";
 import { NavBarAccordian } from "./components/NavBarAccordian";
 import { ResumeBuilder } from "./components/ResumeBuilder";
-import { ElementTypes, NewItem, ResumeSection } from "./constants/types";
+import {
+  Category,
+  ElementTypes,
+  NewItem,
+  ResumeSection,
+} from "./constants/types";
 import { buildElement } from "./utils/buildElement";
 
 function App() {
@@ -15,6 +28,7 @@ function App() {
       label: "Name",
       value: "Danny McKay",
       type: "h1",
+      category: "personal",
       content: (type, value) => {
         return buildElement(type, value);
       },
@@ -24,6 +38,7 @@ function App() {
       title: "Email",
       label: "Email",
       type: "normal",
+      category: "personal",
       value: "dcmckay@gmail.com",
       content: (type, value) => {
         return buildElement(type, value);
@@ -34,6 +49,7 @@ function App() {
       title: "Phone",
       label: "Phone",
       type: "normal",
+      category: "personal",
       value: "608-212-5513",
       content: (type, value) => {
         return buildElement(type, value);
@@ -41,6 +57,8 @@ function App() {
     },
   ]);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [showDrawer, setShowDrawer] = useState<boolean>(false);
+  const [newItemCategory, setNewItemCategory] = useState<Category>("personal");
 
   return (
     <div className="App">
@@ -50,7 +68,7 @@ function App() {
         title="Add new section"
       >
         <NewItemForm
-          saveNewItemFn={(item: NewItem) => {
+          saveNewItemFn={(item: NewItem, category: Category) => {
             const itemCopy = [...items];
             itemCopy.push({
               id: item.label,
@@ -61,10 +79,12 @@ function App() {
               content: (type, value) => {
                 return buildElement(type, value);
               },
+              category,
             });
             setItems(itemCopy);
             setShowModal(false);
           }}
+          category={newItemCategory}
           hideModalFn={() => setShowModal(false)}
         />
       </Modal>
@@ -74,12 +94,20 @@ function App() {
           <NavBarAccordian
             items={items}
             updateItems={(items: ResumeSection[]) => setItems(items)}
-            showModalFn={() => setShowModal(true)}
+            showModalFn={(category: Category) => {
+              setNewItemCategory(category);
+              setShowModal(true);
+            }}
           />
         }
         header={
           <Header height={60} padding="xs" title="Hello">
-            Hire Me!
+            <Group
+              style={{ justifyContent: "space-between", padding: "0 25px" }}
+            >
+              <Title>Hire Me!</Title>
+              <ActionIcon onClick={() => setShowDrawer(true)}>Info</ActionIcon>
+            </Group>
           </Header>
         }
         styles={(theme) => ({
@@ -97,6 +125,13 @@ function App() {
         <ResumeBuilder
           items={items}
           updateItems={(items: ResumeSection[]) => setItems(items)}
+        />
+        <Drawer
+          position="right"
+          opened={showDrawer}
+          onClose={() => {
+            setShowDrawer(false);
+          }}
         />
       </AppShell>
     </div>

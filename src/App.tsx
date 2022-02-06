@@ -1,10 +1,10 @@
-import { ReactElement, useState } from "react";
-import { AppShell, Box, Header, Modal, Paper } from "@mantine/core";
+import { useState } from "react";
+import { AppShell, Header, Modal } from "@mantine/core";
 
 import { NewItemForm } from "./components/NewItemForm";
 import { NavBarAccordian } from "./components/NavBarAccordian";
 import { ResumeBuilder } from "./components/ResumeBuilder";
-import { NewItem, ResumeSection } from "./constants/types";
+import { ElementTypes, NewItem, ResumeSection } from "./constants/types";
 import { buildElement } from "./utils/buildElement";
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
       title: "Email",
       label: "Email",
       type: "normal",
-      value: "dcmckay@",
+      value: "dcmckay@gmail.com",
       content: (type, value) => {
         return buildElement(type, value);
       },
@@ -34,7 +34,7 @@ function App() {
       title: "Phone",
       label: "Phone",
       type: "normal",
-      value: "1111111111",
+      value: "608-212-5513",
       content: (type, value) => {
         return buildElement(type, value);
       },
@@ -50,7 +50,21 @@ function App() {
         title="Add new section"
       >
         <NewItemForm
-          saveNewItemFn={(item: NewItem) => {}}
+          saveNewItemFn={(item: NewItem) => {
+            const itemCopy = [...items];
+            itemCopy.push({
+              id: item.label,
+              label: item.label,
+              type: item.type as ElementTypes,
+              title: item.label,
+              value: `New ${item.label}`,
+              content: (type, value) => {
+                return buildElement(type, value);
+              },
+            });
+            setItems(itemCopy);
+            setShowModal(false);
+          }}
           hideModalFn={() => setShowModal(false)}
         />
       </Modal>

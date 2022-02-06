@@ -48,10 +48,26 @@ export function NavBarAccordian(props: {
                     justifyContent: "space-between",
                   }}
                 >
-                  <Input placeholder={i.label} value={i.value} />
+                  <Input
+                    placeholder={i.label}
+                    value={i.value}
+                    onChange={(e: any) => {
+                      if (e.target.value) {
+                        const changedItem = {
+                          ...i,
+                          value: e.target.value,
+                        };
+                        const idx = props.items.findIndex((v) => v.id === i.id);
+                        const itemsCopy = [...props.items];
+                        itemsCopy[idx] = changedItem;
+                        props.updateItems(itemsCopy);
+                      }
+                    }}
+                  />
                   <Select
                     data={Array.from(ELEMENT_TYPES_MAP.keys())}
                     onChange={(val) => {
+                      console.log(val)
                       if (val) {
                         const changedItem = {
                           ...i,

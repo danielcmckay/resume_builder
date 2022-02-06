@@ -1,5 +1,4 @@
-import { Box } from "@mantine/core";
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 import { ResumeSection } from "../constants/types";
 import { useClickOutside } from "@mantine/hooks";
 
@@ -21,10 +20,10 @@ export const ResumeElement = (props: { item: ResumeSection }) => {
         borderRadius: "20px",
       }}
     >
-      {!editState ? (
+      {!editState && props.item.type ? (
         props.item.content(props.item.type, props.item.value)
       ) : (
-        <p>thing</p>
+        <p></p>
       )}
     </div>
   );

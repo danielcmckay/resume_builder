@@ -1,29 +1,16 @@
-import { Paper, Box } from "@mantine/core";
+import { Paper } from "@mantine/core";
+import { ResumeSection } from "../constants/types";
 import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult,
-  ResponderProvided,
-} from "react-beautiful-dnd";
-import { ResumeSection, ElementTypes } from "../constants/types";
-import { ResumeElement } from "./ResumeElement";
+  Responsive,
+  WidthProvider,
+} from "react-grid-layout";
+
+const ResponsiveGridLayout = WidthProvider(Responsive);
 
 export function ResumeBuilder(props: {
   items: ResumeSection[];
   updateItems: (items: ResumeSection[]) => void;
 }) {
-  const handleDragEnd = (result: DropResult, provided: ResponderProvided) => {
-    if (result.destination) {
-      const itemSet = Array.from(props.items);
-      const [reorderedItem] = itemSet.splice(result.source.index, 1);
-      itemSet.splice(result?.destination?.index, 0, reorderedItem);
-
-      props.updateItems(itemSet);
-    } else {
-      return;
-    }
-  };
   return (
     <Paper
       style={{
@@ -34,33 +21,38 @@ export function ResumeBuilder(props: {
         boxShadow: "5px 5px 15px 5px rgba(0,0,0,0.43)",
       }}
     >
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="list">
-          {(provided) => (
-            <ul {...provided.droppableProps} ref={provided.innerRef}>
-              {props.items.map((i) => (
-                <Draggable
-                  draggableId={props.items.indexOf(i).toString()}
-                  index={props.items.indexOf(i)}
-                  key={props.items.indexOf(i)}
-                >
-                  {(provided) => (
-                    <Box
-                      ref={provided.innerRef}
-                      id={i.id}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <ResumeElement item={i} />
-                    </Box>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </ul>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <ResumeGrid items={props.items} />
     </Paper>
   );
 }
+
+const ResumeGrid = (props: { items: ResumeSection[] }) => {
+  return (
+    <ResponsiveGridLayout
+      rowHeight={30}
+      width={1200}
+      breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+      cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+      maxRows={10}
+      onDragStop={() => {
+        console.log("hi");
+      }}
+    >
+      {props.items.map((i) => {
+        return (
+          <div
+            data-grid={{
+              x: 0,
+              y: 0,
+              w: 1,
+              h: 1,
+            }}
+            key={i.id}
+          >
+            {i.content(i.type, i.value)}
+          </div>
+        );
+      })}
+    </ResponsiveGridLayout>
+  );
+};

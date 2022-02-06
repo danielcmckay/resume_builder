@@ -1,6 +1,7 @@
 import { InputWrapper, Input, Select, Button, Group } from "@mantine/core";
 import { useState } from "react";
-import { NewItem } from "../constants/types";
+import { ELEMENT_TYPES_MAP } from "../constants/constants";
+import { ElementTypes, NewItem } from "../constants/types";
 
 export function NewItemForm(props: {
   saveNewItemFn: (item: NewItem) => void;
@@ -8,8 +9,7 @@ export function NewItemForm(props: {
 }) {
   const [newItem, setNewItem] = useState<NewItem>({
     label: "",
-    type: "",
-    styling: "",
+    type: "normal",
   });
 
   return (
@@ -22,20 +22,17 @@ export function NewItemForm(props: {
           }
         />
       </InputWrapper>
-      <InputWrapper label="Item type">
-        <Select
-          data={["type1", "type2"]}
-          value={newItem?.type}
-          onChange={(e: any) => {
-            setNewItem({ ...newItem, type: e });
-          }}
-        />
-      </InputWrapper>
       <InputWrapper label="Item styling">
         <Select
-          data={["style1", "style2"]}
-          value={newItem?.styling}
-          onChange={(e: any) => setNewItem({ ...newItem, styling: e })}
+          data={Array.from(ELEMENT_TYPES_MAP.keys())}
+          value={newItem?.type}
+          onChange={(e: any) => {
+            setNewItem({
+              ...newItem,
+              type: ELEMENT_TYPES_MAP.get(e) as ElementTypes,
+            });
+          }}
+          placeholder="Normal"
         />
       </InputWrapper>
       <Group
@@ -45,23 +42,7 @@ export function NewItemForm(props: {
           justifyContent: "space-evenly",
         }}
       >
-        <Button
-          onClick={() => {
-            // const itemCopy = [...items];
-            // itemCopy.push({
-            //   id: newItem!.label,
-            //   label: newItem!.label,
-            //   type: newItem!.type as ElementTypes,
-            //   title: newItem!.label,
-            //   value: "",
-            //   content: (type, value) => {
-            //     return <h1>{value}</h1>;
-            //   },
-            // });
-            // setItems(itemCopy);
-            // setShowModal(false);
-          }}
-        >
+        <Button onClick={() => props.saveNewItemFn(newItem)}>
           Save and exit
         </Button>
         <Button color="red" onClick={props.hideModalFn}>

@@ -1,16 +1,16 @@
-import { InputWrapper, Input, Select, Box, Button } from "@mantine/core";
+import { InputWrapper, Input, Select, Button, Group } from "@mantine/core";
 import { useState } from "react";
 import { NewItem } from "../constants/types";
 
 export function NewItemForm(props: {
-  saveNewItemFn: (item: NewItem) => void,
-  hideModalFn: () => void
+  saveNewItemFn: (item: NewItem) => void;
+  hideModalFn: () => void;
 }) {
-const [newItem, setNewItem] = useState<NewItem>({
-  label: "",
-  type: "",
-  styling: "",
-});
+  const [newItem, setNewItem] = useState<NewItem>({
+    label: "",
+    type: "",
+    styling: "",
+  });
 
   return (
     <>
@@ -35,12 +35,16 @@ const [newItem, setNewItem] = useState<NewItem>({
         <Select
           data={["style1", "style2"]}
           value={newItem?.styling}
-          onChange={(e: any) =>
-            setNewItem({ ...newItem, styling: e })
-          }
+          onChange={(e: any) => setNewItem({ ...newItem, styling: e })}
         />
       </InputWrapper>
-      <Box style={{ width: "100%" }}>
+      <Group
+        style={{
+          width: "70%",
+          margin: "20px auto",
+          justifyContent: "space-evenly",
+        }}
+      >
         <Button
           onClick={() => {
             // const itemCopy = [...items];
@@ -63,7 +67,7 @@ const [newItem, setNewItem] = useState<NewItem>({
         <Button color="red" onClick={props.hideModalFn}>
           Cancel
         </Button>
-      </Box>
+      </Group>
     </>
   );
 }

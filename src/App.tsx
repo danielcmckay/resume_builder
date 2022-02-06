@@ -5,6 +5,7 @@ import { NewItemForm } from "./components/NewItemForm";
 import { NavBarAccordian } from "./components/NavBarAccordian";
 import { ResumeBuilder } from "./components/ResumeBuilder";
 import { NewItem, ResumeSection } from "./constants/types";
+import { buildElement } from "./utils/buildElement";
 
 function App() {
   const [items, setItems] = useState<ResumeSection[]>([
@@ -15,7 +16,7 @@ function App() {
       value: "Danny McKay",
       type: "h1",
       content: (type, value) => {
-        return type === "normal" ? <p>{value}</p> : <h1>{value}</h1>;
+        return buildElement(type, value);
       },
     },
     {
@@ -24,6 +25,9 @@ function App() {
       label: "Email",
       type: "normal",
       value: "dcmckay@",
+      content: (type, value) => {
+        return buildElement(type, value);
+      },
     },
     {
       id: "phone",
@@ -31,6 +35,9 @@ function App() {
       label: "Phone",
       type: "normal",
       value: "1111111111",
+      content: (type, value) => {
+        return buildElement(type, value);
+      },
     },
   ]);
   const [showModal, setShowModal] = useState<boolean>(false);

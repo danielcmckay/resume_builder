@@ -7,6 +7,7 @@ import {
   ResponderProvided,
 } from "react-beautiful-dnd";
 import { ResumeSection, ElementTypes } from "../constants/types";
+import { ResumeElement } from "./ResumeElement";
 
 export function ResumeBuilder(props: {
   items: ResumeSection[];
@@ -50,11 +51,7 @@ export function ResumeBuilder(props: {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
-                      {!i.content ? (
-                        <p>{i.value}</p>
-                      ) : (
-                        i.content(i.type as ElementTypes, i.value)
-                      )}
+                      <ResumeElement item={i} />
                     </Box>
                   )}
                 </Draggable>

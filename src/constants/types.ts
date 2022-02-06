@@ -20,6 +20,14 @@ export type ResumeSection = {
   width?: number;
   category: Category;
   content: (type: ElementTypes, value: any) => ReactElement;
+  contentSizing: ElementProps
+};
+
+export type ElementProps = {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
 };
 
 export type NewItem = { label: string; type: ElementTypes };

@@ -2,8 +2,7 @@ import { Box, Center, Group, Paper, Select } from "@mantine/core";
 import { ResumeSection } from "../constants/types";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { ELEMENT_TYPES_MAP } from "../constants/constants";
-
-const ResponsiveGridLayout = WidthProvider(Responsive);
+import { ResumeGrid } from "./ResumeGrid";
 
 export function ResumeBuilder(props: {
   items: ResumeSection[];
@@ -16,10 +15,10 @@ export function ResumeBuilder(props: {
           backgroundColor: "white",
           width: 1000,
           height: "80px",
-          boxShadow: "5px 5px 15px 5px rgba(0,0,0,0.43)",
+          boxShadow: "5px 5px 22px 0px rgba(0,0,0,0.47)",
           borderRadius: "5px",
           margin: "10px auto",
-          padding: "10px",
+          padding: "5px",
         }}
       >
         <Center>
@@ -71,10 +70,10 @@ export function ResumeBuilder(props: {
         style={{
           height: 1400,
           width: 1000,
-          padding: 100,
+          padding: 50,
           margin: "10px auto",
           overflow: "scroll",
-          boxShadow: "5px 5px 15px 5px rgba(0,0,0,0.43)",
+          boxShadow: "5px 5px 22px 0px rgba(0,0,0,0.47)",
         }}
       >
         <ResumeGrid items={props.items} />
@@ -82,37 +81,3 @@ export function ResumeBuilder(props: {
     </Group>
   );
 }
-
-const ResumeGrid = (props: { items: ResumeSection[] }) => {
-  return (
-    <ResponsiveGridLayout
-      rowHeight={30}
-      autoSize
-      width={1200}
-      breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-      cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
-      maxRows={30}
-      onDragStop={() => {
-        console.log("hi");
-      }}
-      allowOverlap={false}
-    >
-      {props.items.map((i) => {
-        return (
-          <div
-            style={{ cursor: "pointer" }}
-            data-grid={{
-              x: 0,
-              y: 0,
-              w: 1,
-              h: 1,
-            }}
-            key={i.id}
-          >
-            {i.content(i.type, i.value)}
-          </div>
-        );
-      })}
-    </ResponsiveGridLayout>
-  );
-};

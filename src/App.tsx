@@ -33,6 +33,12 @@ function App() {
       content: (type, value) => {
         return buildElement(type, value);
       },
+      contentSizing: {
+        w: 4,
+        h: 2,
+        x: 0,
+        y: 0,
+      },
     },
     {
       id: "email",
@@ -44,6 +50,12 @@ function App() {
       content: (type, value) => {
         return buildElement(type, value);
       },
+      contentSizing: {
+        w: 1,
+        h: 1,
+        x: 5,
+        y: 0,
+      },
     },
     {
       id: "phone",
@@ -54,6 +66,12 @@ function App() {
       value: "608-212-5513",
       content: (type, value) => {
         return buildElement(type, value);
+      },
+      contentSizing: {
+        w: 1,
+        h: 1,
+        x: 6,
+        y: 1,
       },
     },
   ]);
@@ -86,6 +104,12 @@ function App() {
                     return buildElement(type, value);
                   },
                   category,
+                  contentSizing: {
+                    w: 1,
+                    h: 1,
+                    x: 2,
+                    y: 0,
+                  },
                 });
                 setItems(itemCopy);
                 setShowModal(false);

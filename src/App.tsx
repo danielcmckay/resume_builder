@@ -30,14 +30,19 @@ function App() {
       value: "Danny McKay",
       type: "h1",
       category: "personal",
-      content: (type, value) => {
-        return buildElement(type, value);
-      },
+
       contentSizing: {
         w: 4,
         h: 2,
         x: 0,
         y: 0,
+      },
+      style: {
+        font: "Open Sans",
+        fontSize: undefined,
+      },
+      content: (type, value, style) => {
+        return buildElement(type, value, style);
       },
     },
     {
@@ -47,14 +52,19 @@ function App() {
       type: "normal",
       category: "personal",
       value: "dcmckay@gmail.com",
-      content: (type, value) => {
-        return buildElement(type, value);
-      },
+
       contentSizing: {
         w: 1,
         h: 1,
         x: 5,
         y: 0,
+      },
+      style: {
+        font: "Open Sans",
+        fontSize: 12,
+      },
+      content: (type, value, style) => {
+        return buildElement(type, value, style);
       },
     },
     {
@@ -64,14 +74,19 @@ function App() {
       type: "normal",
       category: "personal",
       value: "608-212-5513",
-      content: (type, value) => {
-        return buildElement(type, value);
-      },
+
       contentSizing: {
         w: 1,
         h: 1,
         x: 6,
         y: 1,
+      },
+      style: {
+        font: "Open Sans",
+        fontSize: 12,
+      },
+      content: (type, value, style) => {
+        return buildElement(type, value, style);
       },
     },
   ]);
@@ -100,15 +115,19 @@ function App() {
                   type: item.type as ElementTypes,
                   title: item.label,
                   value: `New ${item.label}`,
-                  content: (type, value) => {
-                    return buildElement(type, value);
-                  },
                   category,
                   contentSizing: {
                     w: 1,
                     h: 1,
                     x: 2,
                     y: 0,
+                  },
+                  style: {
+                    font: "Open Sans",
+                    fontSize: 12,
+                  },
+                  content: (type, value, style) => {
+                    return buildElement(type, value, style);
                   },
                 });
                 setItems(itemCopy);

@@ -19,3 +19,5 @@ export const CATEGORY_TYPES_MAP = new Map<string, Category>([
   ["Education history", "education"],
   ["Custom", "custom"],
 ]);
+
+export const FONT_SIZES = ["10", "11", "12", "14", "16", "18", "20", "24", "30", "36", "42", "48", "56", "72"];

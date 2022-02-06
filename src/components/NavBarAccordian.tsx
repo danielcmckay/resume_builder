@@ -4,13 +4,12 @@ import {
   AccordionItem,
   InputWrapper,
   Button,
-  Box,
   Input,
-  Select,
   CloseButton,
+  Group,
 } from "@mantine/core";
-import { CATEGORY_TYPES_MAP, ELEMENT_TYPES_MAP } from "../constants/constants";
-import { ResumeSection, ElementTypes, Category } from "../constants/types";
+import { CATEGORY_TYPES_MAP } from "../constants/constants";
+import { ResumeSection, Category } from "../constants/types";
 
 export function NavBarAccordian(props: {
   showModalFn: (category: Category) => void;
@@ -22,7 +21,7 @@ export function NavBarAccordian(props: {
       <Accordion initialItem={0}>
         {Array.from(CATEGORY_TYPES_MAP.entries()).map(([label, category]) => {
           return (
-            <AccordionItem
+            <AccordionItem key={category}
               label={label}
               title={label}
               style={{
@@ -48,13 +47,14 @@ export function NavBarAccordian(props: {
                       label={i.label}
                       style={{ textAlign: "left", margin: "10px 0" }}
                     >
-                      <Box
+                      <Group
+                        direction="row"
                         style={{
-                          display: "flex",
                           justifyContent: "space-between",
                         }}
                       >
                         <Input
+                          style={{ width: "85%" }}
                           placeholder={i.label}
                           value={i.value}
                           onChange={(e: any) => {
@@ -72,31 +72,6 @@ export function NavBarAccordian(props: {
                             }
                           }}
                         />
-                        <Select
-                          data={Array.from(ELEMENT_TYPES_MAP.keys())}
-                          onChange={(val) => {
-                            console.log(val);
-                            if (val) {
-                              const changedItem = {
-                                ...i,
-                                type: ELEMENT_TYPES_MAP.get(
-                                  val
-                                ) as ElementTypes,
-                              };
-                              const idx = props.items.findIndex(
-                                (v) => v.id === i.id
-                              );
-                              const itemsCopy = [...props.items];
-                              itemsCopy[idx] = changedItem;
-                              props.updateItems(itemsCopy);
-                            }
-                          }}
-                          value={
-                            Array.from(ELEMENT_TYPES_MAP.entries()).find(
-                              ([name, val]) => val === i.type
-                            )?.[0] ?? "normal"
-                          }
-                        />
                         <CloseButton
                           onClick={() => {
                             const filtered = props.items.filter(
@@ -105,7 +80,7 @@ export function NavBarAccordian(props: {
                             props.updateItems(filtered);
                           }}
                         />
-                      </Box>
+                      </Group>
                     </InputWrapper>
                   );
                 })}

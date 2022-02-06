@@ -10,10 +10,8 @@ import {
 } from "@mantine/core";
 import { useState } from "react";
 
-export const AuthPage = (props: {
-  onLoginFn: () => void
-}) => {
-  const [selectedTab, setSelectedTab] = useState(0);
+export const AuthPage = (props: { onLoginFn: () => void }) => {
+  const [selectedTab, setSelectedTab] = useState(1);
   return (
     <AppShell
       padding="md"
@@ -34,7 +32,7 @@ export const AuthPage = (props: {
         style={{
           height: 600,
           width: 600,
-          boxShadow: "5px 5px 15px 5px rgba(0,0,0,0.43)",
+          boxShadow: "5px 5px 15px 5px rgba(0,0,0,0.25)",
         }}
       >
         <Card.Section>
@@ -73,7 +71,9 @@ export const AuthPage = (props: {
                 <TextInput label="Email" style={{ width: "100%" }} />
                 <PasswordInput label="Password" style={{ width: "100%" }} />
                 <Group direction="row" style={{ margin: "20px auto" }}>
-                  <Button color="green" onClick={props.onLoginFn}>Log in</Button>
+                  <Button color="green" onClick={props.onLoginFn}>
+                    Log in
+                  </Button>
                 </Group>
               </Group>
             </Tabs.Tab>

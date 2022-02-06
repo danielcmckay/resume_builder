@@ -19,8 +19,13 @@ export type ResumeSection = {
   type: ElementTypes;
   width?: number;
   category: Category;
-  content: (type: ElementTypes, value: any) => ReactElement;
-  contentSizing: ElementProps
+  content: (
+    type: ElementTypes,
+    value: any,
+    style: ElementStyling
+  ) => ReactElement;
+  contentSizing: ElementProps;
+  style: ElementStyling;
 };
 
 export type ElementProps = {
@@ -30,6 +35,17 @@ export type ElementProps = {
   h: number;
 };
 
+export type ElementStyling = {
+  font: ElementFonts;
+  fontSize: number | undefined;
+};
+
 export type NewItem = { label: string; type: ElementTypes };
 
 export type Category = "personal" | "work" | "skills" | "education" | "custom";
+
+export type ElementFonts =
+  | "Open Sans"
+  | "Roboto Mono"
+  | "Cormorant Garamond"
+  | "Merriweather";

@@ -1,23 +1,19 @@
 import { useClickOutside } from "@mantine/hooks";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import { ResumeSection } from "../constants/types";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
-export const ResumeGrid = (props: { items: ResumeSection[] }) => {
+export const ResumeGrid = (props: {
+  items: ResumeSection[];
+  selectedItem: ResumeSection | undefined;
+  setSelectedItem: (item: ResumeSection | undefined) => void;
+}) => {
   const [hoverState, setHoverState] = useState(false);
-  const [editState, setEditState] = useState(false);
   const ref = useClickOutside(() => {
-    console.log(selectedElement)
-    setSelectedElement(null)});
-  const [selectedElement, setSelectedElement] = useState<
-    ResumeSection | null
-  >();
-
-  useEffect(() => {
-    console.log(selectedElement)
-  }, [selectedElement])
+    props.setSelectedItem(undefined);
+  });
 
   return (
     <ResponsiveGridLayout
@@ -43,11 +39,10 @@ export const ResumeGrid = (props: { items: ResumeSection[] }) => {
             onMouseEnter={() => setHoverState(true)}
             onMouseLeave={() => setHoverState(false)}
             onDoubleClick={(e) => {
-              if (selectedElement !== i) {
-              setSelectedElement(i);
-
+              if (props.selectedItem !== i) {
+                props.setSelectedItem(i);
               } else {
-                setSelectedElement(undefined)
+                props.setSelectedItem(undefined);
               }
             }}
             style={{
@@ -56,10 +51,10 @@ export const ResumeGrid = (props: { items: ResumeSection[] }) => {
               margin: 0,
               borderRadius: "10px",
               border: hoverState ? "1px solid #e0e0e0" : "1px solid white",
-              backgroundColor: selectedElement === i ? "#fff2d6" : "white",
+              backgroundColor: props.selectedItem === i ? "#fff2d6" : "white",
             }}
           >
-            {i.content(i.type, i.value)}
+            {i.content(i.type, i.value, i.style)}
           </div>
         );
       })}

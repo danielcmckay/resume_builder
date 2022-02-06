@@ -9,7 +9,8 @@ export type ElementTypes =
   | "h5"
   | "h6"
   | "quote"
-  | "code";
+  | "code"
+  | "list";
 
 export type ResumeSection = {
   id: string;
@@ -26,6 +27,7 @@ export type ResumeSection = {
   ) => ReactElement;
   contentSizing: ElementProps;
   style: ElementStyling;
+  subItems?: ReactElement[];
 };
 
 export type ElementProps = {
@@ -40,7 +42,11 @@ export type ElementStyling = {
   fontSize: number | undefined;
 };
 
-export type NewItem = { label: string; type: ElementTypes };
+export type NewItem = {
+  label: string;
+  type: ElementTypes;
+  subContents?: ReactElement[];
+};
 
 export type Category = "personal" | "work" | "skills" | "education" | "custom";
 

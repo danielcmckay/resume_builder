@@ -10,6 +10,7 @@ export const ELEMENT_TYPES_MAP = new Map<string, ElementTypes>([
   ["Heading 6", "h6"],
   ["Block quote", "quote"],
   ["Code", "code"],
+  ["List", "list"],
 ]);
 
 export const CATEGORY_TYPES_MAP = new Map<string, Category>([
@@ -20,4 +21,19 @@ export const CATEGORY_TYPES_MAP = new Map<string, Category>([
   ["Custom", "custom"],
 ]);
 
-export const FONT_SIZES = ["10", "11", "12", "14", "16", "18", "20", "24", "30", "36", "42", "48", "56", "72"];
+export const FONT_SIZES = [
+  "10",
+  "11",
+  "12",
+  "14",
+  "16",
+  "18",
+  "20",
+  "24",
+  "30",
+  "36",
+  "42",
+  "48",
+  "56",
+  "72",
+];

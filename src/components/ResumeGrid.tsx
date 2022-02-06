@@ -1,5 +1,5 @@
 import { useClickOutside } from "@mantine/hooks";
-import { useState } from "react";
+import { Key, useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
 import { ResumeSection } from "../constants/types";
 
@@ -10,7 +10,9 @@ export const ResumeGrid = (props: {
   selectedItem: ResumeSection | undefined;
   setSelectedItem: (item: ResumeSection | undefined) => void;
 }) => {
-  const [hoverState, setHoverState] = useState(false);
+  const [hoverState, setHoverState] = useState<ResumeSection | undefined>(
+    undefined
+  );
   const ref = useClickOutside(() => {
     props.setSelectedItem(undefined);
   });
@@ -24,6 +26,7 @@ export const ResumeGrid = (props: {
       cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
       maxRows={30}
       allowOverlap={false}
+      margin={[15, 15]}
     >
       {props.items.map((i) => {
         return (
@@ -36,8 +39,8 @@ export const ResumeGrid = (props: {
             }}
             key={i.id}
             ref={ref}
-            onMouseEnter={() => setHoverState(true)}
-            onMouseLeave={() => setHoverState(false)}
+            onMouseEnter={() => setHoverState(i)}
+            onMouseLeave={() => setHoverState(undefined)}
             onDoubleClick={(e) => {
               if (props.selectedItem !== i) {
                 props.setSelectedItem(i);
@@ -47,10 +50,11 @@ export const ResumeGrid = (props: {
             }}
             style={{
               cursor: "pointer",
-              padding: 5,
-              margin: 0,
+              padding: "5px 5px",
+              margin: "5px",
               borderRadius: "10px",
-              border: hoverState ? "1px solid #e0e0e0" : "1px solid white",
+              border:
+                hoverState === i ? "1px solid #e0e0e0" : "1px solid white",
               backgroundColor: props.selectedItem === i ? "#fff2d6" : "white",
             }}
           >

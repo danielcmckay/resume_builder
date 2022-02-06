@@ -1,4 +1,4 @@
-import { Title, Text, Code, Blockquote } from "@mantine/core";
+import { Title, Text, Code, Blockquote, List } from "@mantine/core";
 import { ElementStyling, ElementTypes } from "../constants/types";
 
 export const buildElement = (
@@ -71,5 +71,7 @@ export const buildElement = (
       return <Code>{value}</Code>;
     case "quote":
       return <Blockquote>{value}</Blockquote>;
+    case "list":
+      return <List>{value}</List>;
   }
 };

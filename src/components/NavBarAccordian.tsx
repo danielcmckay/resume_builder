@@ -18,10 +18,13 @@ export function NavBarAccordian(props: {
 }) {
   return (
     <Navbar width={{ base: 500 }} height={"100%"} padding="xs">
-      <Accordion initialItem={0}>
+      <Accordion initialItem={1}>
+        <AccordionItem label="Settings">
+        </AccordionItem>
         {Array.from(CATEGORY_TYPES_MAP.entries()).map(([label, category]) => {
           return (
-            <AccordionItem key={category}
+            <AccordionItem
+              key={category}
               label={label}
               title={label}
               style={{

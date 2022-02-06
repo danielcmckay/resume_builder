@@ -1,9 +1,5 @@
 import { Box, Button, Center, Group, Paper, Select } from "@mantine/core";
-import {
-  ElementFonts,
-  ElementTypes,
-  ResumeSection,
-} from "../constants/types";
+import { ElementFonts, ElementTypes, ResumeSection } from "../constants/types";
 import { ELEMENT_TYPES_MAP, FONT_SIZES } from "../constants/constants";
 import { ResumeGrid } from "./ResumeGrid";
 import { useState } from "react";
@@ -40,6 +36,7 @@ export function ResumeBuilder(props: {
               size="xs"
               defaultValue={"Open Sans"}
               disabled={!selectedItem}
+              value={selectedItem?.style.font}
               onChange={(val: ElementFonts) => {
                 if (selectedItem) {
                   const changedItem = {
@@ -64,6 +61,7 @@ export function ResumeBuilder(props: {
               defaultValue={"10"}
               data={FONT_SIZES}
               disabled={!selectedItem}
+              value={selectedItem?.style.fontSize as unknown as string}
               onChange={(val: string) => {
                 if (selectedItem) {
                   const changedItem = {

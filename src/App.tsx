@@ -20,76 +20,10 @@ import {
 } from "./constants/types";
 import { buildElement } from "./utils/buildElement";
 import { AuthPage } from "./pages/Auth";
+import { DEFAULT_TEMPLATE } from "./constants/templates";
 
 function App() {
-  const [items, setItems] = useState<ResumeSection[]>([
-    {
-      id: "name",
-      title: "Name",
-      label: "Name",
-      value: "Danny McKay",
-      type: "h1",
-      category: "personal",
-
-      contentSizing: {
-        w: 4,
-        h: 2,
-        x: 0,
-        y: 0,
-      },
-      style: {
-        font: "Open Sans",
-        fontSize: undefined,
-      },
-      content: (type, value, style) => {
-        return buildElement(type, value, style);
-      },
-    },
-    {
-      id: "email",
-      title: "Email",
-      label: "Email",
-      type: "normal",
-      category: "personal",
-      value: "dcmckay@gmail.com",
-
-      contentSizing: {
-        w: 1,
-        h: 1,
-        x: 5,
-        y: 0,
-      },
-      style: {
-        font: "Open Sans",
-        fontSize: 12,
-      },
-      content: (type, value, style) => {
-        return buildElement(type, value, style);
-      },
-    },
-    {
-      id: "phone",
-      title: "Phone",
-      label: "Phone",
-      type: "normal",
-      category: "personal",
-      value: "608-212-5513",
-
-      contentSizing: {
-        w: 1,
-        h: 1,
-        x: 6,
-        y: 1,
-      },
-      style: {
-        font: "Open Sans",
-        fontSize: 12,
-      },
-      content: (type, value, style) => {
-        return buildElement(type, value, style);
-      },
-    },
-  ]);
+  const [items, setItems] = useState<ResumeSection[]>(DEFAULT_TEMPLATE);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showDrawer, setShowDrawer] = useState<boolean>(false);
   const [newItemCategory, setNewItemCategory] = useState<Category>("personal");

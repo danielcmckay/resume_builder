@@ -1,4 +1,11 @@
-import { InputWrapper, Input, Select, Button, Group } from "@mantine/core";
+import {
+  InputWrapper,
+  Input,
+  Select,
+  Button,
+  Group,
+  TextInput,
+} from "@mantine/core";
 import { useState } from "react";
 import { ELEMENT_TYPES_MAP } from "../constants/constants";
 import { Category, ElementTypes, NewItem } from "../constants/types";
@@ -35,6 +42,18 @@ export function NewItemForm(props: {
           }}
           placeholder="Normal"
         />
+        {newItem.type === "list" && (
+          <Group
+            style={{
+              margin: "10px auto",
+              width: "100%",
+              alignItems: "flex-end",
+            }}
+          >
+            <TextInput label={`New item ${1}`} />
+            <Button>Add</Button>
+          </Group>
+        )}
       </InputWrapper>
       <Group
         style={{

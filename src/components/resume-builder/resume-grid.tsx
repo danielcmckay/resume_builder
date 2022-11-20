@@ -1,7 +1,7 @@
 import { useClickOutside } from "@mantine/hooks";
 import { Key, useState } from "react";
 import { WidthProvider, Responsive } from "react-grid-layout";
-import { ResumeSection } from "../constants/types";
+import { ResumeSection } from "../../constants/types";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 

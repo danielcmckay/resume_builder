@@ -1,5 +1,4 @@
 import {
-  InputWrapper,
   Input,
   Select,
   Button,
@@ -7,8 +6,8 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useState } from "react";
-import { ELEMENT_TYPES_MAP } from "../constants/constants";
-import { Category, ElementTypes, NewItem } from "../constants/types";
+import { ELEMENT_TYPES_MAP } from "../../constants/constants";
+import { Category, ElementTypes, NewItem } from "../../constants/types";
 
 export function NewItemForm(props: {
   saveNewItemFn: (item: NewItem, category: Category) => void;
@@ -22,15 +21,15 @@ export function NewItemForm(props: {
 
   return (
     <>
-      <InputWrapper label="Item label">
+      <Input.Wrapper label="Item label">
         <Input
           value={newItem?.label}
           onChange={(e: any) =>
             setNewItem({ ...newItem, label: e.target.value })
           }
         />
-      </InputWrapper>
-      <InputWrapper label="Item styling">
+      </Input.Wrapper>
+      <Input.Wrapper label="Item styling">
         <Select
           data={Array.from(ELEMENT_TYPES_MAP.keys())}
           value={newItem?.type}
@@ -54,7 +53,7 @@ export function NewItemForm(props: {
             <Button>Add</Button>
           </Group>
         )}
-      </InputWrapper>
+      </Input.Wrapper>
       <Group
         style={{
           width: "70%",

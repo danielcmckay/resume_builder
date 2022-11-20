@@ -11,7 +11,7 @@ import {
 import { useState } from "react";
 
 export const AuthPage = (props: { onLoginFn: () => void }) => {
-  const [selectedTab, setSelectedTab] = useState(1);
+  const [selectedTab, setSelectedTab] = useState<string>("0");
   return (
     <AppShell
       padding="md"
@@ -42,41 +42,35 @@ export const AuthPage = (props: { onLoginFn: () => void }) => {
           />
         </Card.Section>
         <Card.Section>
-          <Tabs
-            active={selectedTab}
-            onTabChange={setSelectedTab}
-            position="center"
-          >
-            <Tabs.Tab label="Sign up">
-              <Group
-                direction="column"
-                style={{ width: "60%", margin: "0 auto" }}
-              >
+          <Tabs defaultValue={"Log in"}>
+            <Tabs.List>
+              <Tabs.Tab value="Sign up">Sign up</Tabs.Tab>
+              <Tabs.Tab value="Log in">Log in</Tabs.Tab>
+            </Tabs.List>
+            <Tabs.Panel value="Sign up">
+              <Group align="column" style={{ width: "60%", margin: "0 auto" }}>
                 <TextInput label="Email" style={{ width: "100%" }} />
                 <PasswordInput label="Password" style={{ width: "100%" }} />
                 <PasswordInput
                   label="Re-enter password"
                   style={{ width: "100%" }}
                 />
-                <Group direction="row" style={{ margin: "20px auto" }}>
+                <Group align="row" style={{ margin: "20px auto" }}>
                   <Button>Sign up</Button>
                 </Group>
               </Group>
-            </Tabs.Tab>
-            <Tabs.Tab label="Log in">
-              <Group
-                direction="column"
-                style={{ width: "60%", margin: "0 auto" }}
-              >
+            </Tabs.Panel>
+            <Tabs.Panel value="Log in">
+              <Group align="column" style={{ width: "60%", margin: "0 auto" }}>
                 <TextInput label="Email" style={{ width: "100%" }} />
                 <PasswordInput label="Password" style={{ width: "100%" }} />
-                <Group direction="row" style={{ margin: "20px auto" }}>
+                <Group align="row" style={{ margin: "20px auto" }}>
                   <Button color="green" onClick={props.onLoginFn}>
                     Log in
                   </Button>
                 </Group>
               </Group>
-            </Tabs.Tab>
+            </Tabs.Panel>
           </Tabs>
         </Card.Section>
       </Card>

@@ -1,4 +1,4 @@
-import { buildElement } from "../utils/buildElement";
+import { buildElement } from "../utils/build-element";
 import { ResumeSection } from "./types";
 
 export const DEFAULT_TEMPLATE = (): ResumeSection[] => {

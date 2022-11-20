@@ -1,15 +1,14 @@
 import { Box, Button, Center, Group, Paper, Select } from "@mantine/core";
-import { ElementFonts, ElementTypes, ResumeSection } from "../constants/types";
-import { ELEMENT_TYPES_MAP, FONT_SIZES } from "../constants/constants";
-import { ResumeGrid } from "./ResumeGrid";
-import { useState } from "react";
+import { ElementFonts, ElementTypes, ResumeSection } from "../../constants/types";
+import { ELEMENT_TYPES_MAP, FONT_SIZES } from "../../constants/constants";
+import { ResumeGrid } from "./resume-grid";
 
 export function ResumeBuilder(props: {
   items: ResumeSection[];
+  selectedItem: ResumeSection | undefined;
+  setSelectedItem: (item: ResumeSection | undefined) => void;
   updateItems: (items: ResumeSection[]) => void;
 }) {
-  const [selectedItem, setSelectedItem] = useState<ResumeSection | undefined>();
-
   return (
     <Group>
       <Box
@@ -35,19 +34,19 @@ export function ResumeBuilder(props: {
               ]}
               size="xs"
               defaultValue={"Open Sans"}
-              disabled={!selectedItem}
-              value={selectedItem?.style.font}
+              disabled={!props.selectedItem}
+              value={props.selectedItem?.style.font}
               onChange={(val: ElementFonts) => {
-                if (selectedItem) {
+                if (props.selectedItem) {
                   const changedItem = {
-                    ...selectedItem,
+                    ...props.selectedItem,
                     style: {
-                      fontSize: selectedItem.style.fontSize,
+                      fontSize: props.selectedItem.style.fontSize,
                       font: val,
                     },
                   };
                   const idx = props.items.findIndex(
-                    (v) => v.id === selectedItem.id
+                    (v) => v.id === props.selectedItem?.id
                   );
                   const itemsCopy = [...props.items];
                   itemsCopy[idx] = changedItem;
@@ -60,19 +59,19 @@ export function ResumeBuilder(props: {
               size="xs"
               defaultValue={"10"}
               data={FONT_SIZES}
-              disabled={!selectedItem}
-              value={selectedItem?.style.fontSize as unknown as string}
+              disabled={!props.selectedItem}
+              value={props.selectedItem?.style.fontSize as unknown as string}
               onChange={(val: string) => {
-                if (selectedItem) {
+                if (props.selectedItem) {
                   const changedItem = {
-                    ...selectedItem,
+                    ...props.selectedItem,
                     style: {
                       fontSize: parseInt(val),
-                      font: selectedItem.style.font,
+                      font: props.selectedItem.style.font,
                     },
                   };
                   const idx = props.items.findIndex(
-                    (v) => v.id === selectedItem.id
+                    (v) => v.id === props.selectedItem?.id
                   );
                   const itemsCopy = [...props.items];
                   itemsCopy[idx] = changedItem;
@@ -85,15 +84,15 @@ export function ResumeBuilder(props: {
               size="xs"
               defaultValue={"normal"}
               data={Array.from(ELEMENT_TYPES_MAP.keys())}
-              disabled={!selectedItem}
+              disabled={!props.selectedItem}
               onChange={(val) => {
-                if (val && selectedItem) {
+                if (val && props.selectedItem) {
                   const changedItem = {
-                    ...selectedItem,
+                    ...props.selectedItem,
                     type: ELEMENT_TYPES_MAP.get(val) as ElementTypes,
                   };
                   const idx = props.items.findIndex(
-                    (v) => v.id === selectedItem.id
+                    (v) => v.id === props.selectedItem?.id
                   );
                   const itemsCopy = [...props.items];
                   itemsCopy[idx] = changedItem;
@@ -102,7 +101,7 @@ export function ResumeBuilder(props: {
               }}
               value={
                 Array.from(ELEMENT_TYPES_MAP.entries()).find(
-                  ([name, val]) => val === selectedItem?.type
+                  ([name, val]) => val === props.selectedItem?.type
                 )?.[0] ?? "normal"
               }
             />
@@ -122,8 +121,8 @@ export function ResumeBuilder(props: {
       >
         <ResumeGrid
           items={props.items}
-          selectedItem={selectedItem}
-          setSelectedItem={setSelectedItem}
+          selectedItem={props.selectedItem}
+          setSelectedItem={props.setSelectedItem}
         />
       </Paper>
     </Group>
